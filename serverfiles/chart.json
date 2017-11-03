@@ -1,0 +1,39 @@
+{
+  "chart": {
+    "caption": "App Usage Analysis",
+    "subCaption": "",
+    "xAxisName": "App",
+    "yAxisName": "Usage Duration (in miliseconds)",
+    "theme": "fint"
+  },
+  
+    "data": [{
+    "label": "Whatsapp",
+    "value": "4009"
+    }, {
+        "label": "Facebook",
+        "value": "3010"
+    }, {
+        "label": "Instagram",
+        "value": "749"
+    }, {
+        "label": "Zomato",
+        "value": "809"
+    }, {
+        "label": "Quora",
+        "value": "1003"
+    }, {
+        "label": "Camera",
+        "value": "501"
+    }, {
+        "label": "Notes",
+        "value": "889"
+    }, {
+        "label": "Ola",
+        "value": "1200"
+    }, {
+        "label": "Uber",
+        "value": "978"
+    }]
+
+}
