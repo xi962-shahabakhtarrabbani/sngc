@@ -1,3 +1,4 @@
+
 Steps :
 1- Once you clone the repo on your systems, cd to the sngc directory and create a python virtual environment using the following command :
 
@@ -35,4 +36,3 @@ npm install fusioncharts will create a fusioncharts directory inside your node_m
 
 7- If you are not using an IDE, hit : python main.py and this would start the flask server. 
 Go to localhost:3000 and the app would be ready there.
-
