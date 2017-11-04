@@ -26,13 +26,11 @@ This would install all the dependencies for this project. Now if anyone of us ar
 4- Now you will have to individually install the Fusion Charts library on your systems. It's a trial version though but it will work indefinitely.
 
 Use npm to install the fusioncharts. Use : npm install fusioncharts.
-If npm is not installed, then you can probably install it using : sudo apt-get install npm (I am not so sure about this command though)
+If npm is not installed, then you can probably install it using : sudo apt-get install npm
 
 npm install fusioncharts will create a fusioncharts directory inside your node_modules directory which will be created in your home directory(if not already present)
 
-5- Now the code that I have pushed has code that is directed towards the node_modules folder of my system. You will have to manually change that code to set the target to your system's folder.
+5- Now you can finally start your flask app. I would suggest to use an IDE like 'PyCharm Community Edition', it's provided by free from JetBrains.
 
-6- Now you can finally start your flask app. I would suggest to use an IDE like 'PyCharm Community Edition', it's provided by free from JetBrains.
-
-7- If you are not using an IDE, hit : python main.py and this would start the flask server. 
-Go to localhost:3000 and the app would be ready there.
+6- If you are not using an IDE, hit : python main.py and this would start the flask server.
+Go to localhost:5000 and the app would be ready there.
