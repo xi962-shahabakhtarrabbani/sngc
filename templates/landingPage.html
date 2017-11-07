@@ -3,8 +3,167 @@
 
     <head>
         <title>App Usage Analytics</title>
+        <link rel="shortcut icon" type="image/x-icon" href="static/favicon.ico" />
+
         <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css" rel="stylesheet">
         <link href="{{ url_for('static', filename='stylesheets/bootstrap.min.css') }}" rel="stylesheet"/>
+        <script type="text/javascript" src="{{ url_for('static', filename='javascript/fusioncharts.js') }}"></script>
+        <script type="text/javascript" src="{{ url_for('static', filename='javascript/fusioncharts.theme.fint.js') }}"></script>
+
+        <!--Scripts for rendering charts-->
+
+        <!--TotalData-->
+        <script type="text/javascript">
+            FusionCharts.ready(function(){
+              var appUsageChart = new FusionCharts({
+                  "type": "column3d",    // use "pie3d" for pie chart, "pyramid" for pyramid chart :)
+                  "renderAt": "total_columnContainer",
+                  "width": "700",
+                  "height": "400",
+                  "dataFormat": "json",
+                  "dataSource":  {
+                    "chart": {
+                      "caption": "App Usage Analysis",
+                      "subCaption": "",
+                      "xAxisName": "App Name",
+                      "yAxisName": "Total Usage Duration (in miliseconds)",
+                      "theme": "fint"
+                   },
+                   "data": {{ totalData|tojson }}
+              }
+
+            });
+          appUsageChart.render();
+          })
+          </script>
+
+        <script type="text/javascript">
+            FusionCharts.ready(function(){
+              var appUsageChart = new FusionCharts({
+                  "type": "pie3d",    // use "pie3d" for pie chart, "pyramid" for pyramid chart :)
+                  "renderAt": "total_pieContainer",
+                  "width": "700",
+                  "height": "400",
+                  "dataFormat": "json",
+                  "dataSource":  {
+                    "chart": {
+                      "caption": "App Usage Analysis",
+                      "subCaption": "",
+                      "xAxisName": "App Name",
+                      "yAxisName": "Total Usage Duration (in miliseconds)",
+                      "theme": "fint"
+                   },
+                   "data": {{ totalData|tojson }}
+              }
+
+            });
+          appUsageChart.render();
+          })
+          </script>
+
+        <script type="text/javascript">
+            FusionCharts.ready(function(){
+              var appUsageChart = new FusionCharts({
+                  "type": "pyramid",    // use "pie3d" for pie chart, "pyramid" for pyramid chart :)
+                  "renderAt": "total_pyramidContainer",
+                  "width": "700",
+                  "height": "400",
+                  "dataFormat": "json",
+                  "dataSource":  {
+                    "chart": {
+                      "caption": "App Usage Analysis",
+                      "subCaption": "",
+                      "xAxisName": "App Name",
+                      "yAxisName": "Total Usage Duration (in miliseconds)",
+                      "theme": "fint"
+                   },
+                   "data": {{ totalData|tojson }}
+              }
+
+            });
+          appUsageChart.render();
+          })
+          </script>
+
+        <!--END-TotalData-->
+
+        <!--AvgData-->
+        <script type="text/javascript">
+            FusionCharts.ready(function(){
+              var appUsageChart = new FusionCharts({
+                  "type": "column3d",    // use "pie3d" for pie chart, "pyramid" for pyramid chart :)
+                  "renderAt": "columnContainer",
+                  "width": "700",
+                  "height": "400",
+                  "dataFormat": "json",
+                  "dataSource":  {
+                    "chart": {
+                      "caption": "App Usage Analysis",
+                      "subCaption": "",
+                      "xAxisName": "App Name",
+                      "yAxisName": "Average Usage Duration (in miliseconds)",
+                      "theme": "fint"
+                   },
+                   "data": {{ avgData|tojson }}
+
+              }
+
+            });
+          appUsageChart.render();
+          })
+          </script>
+
+        <script type="text/javascript">
+            FusionCharts.ready(function(){
+              var appUsageChart = new FusionCharts({
+                  "type": "pie3d",    // use "pie3d" for pie chart, "pyramid" for pyramid chart :)
+                  "renderAt": "pieContainer",
+                  "width": "700",
+                  "height": "400",
+                  "dataFormat": "json",
+                  "dataSource":  {
+                    "chart": {
+                      "caption": "App Usage Analysis",
+                      "subCaption": "",
+                      "xAxisName": "App Name",
+                      "yAxisName": "Average Usage Duration (in miliseconds)",
+                      "theme": "fint"
+                   },
+                   "data": {{ avgData|tojson }}
+
+              }
+
+            });
+          appUsageChart.render();
+          })
+          </script>
+
+        <script type="text/javascript">
+            FusionCharts.ready(function(){
+              var appUsageChart = new FusionCharts({
+                  "type": "pyramid",    // use "pie3d" for pie chart, "pyramid" for pyramid chart :)
+                  "renderAt": "pyramidContainer",
+                  "width": "700",
+                  "height": "400",
+                  "dataFormat": "json",
+                  "dataSource":  {
+                    "chart": {
+                      "caption": "App Usage Analysis",
+                      "subCaption": "",
+                      "xAxisName": "App Name",
+                      "yAxisName": "Average Usage Duration (in miliseconds)",
+                      "theme": "fint"
+                   },
+                   "data": {{ avgData|tojson }}
+
+              }
+
+            });
+          appUsageChart.render();
+          })
+          </script>
+        <!--END-AvgData-->
+        <!--END-Scripts for rendering charts-->
     </head>
 
     <style>
@@ -25,7 +184,7 @@
 
                     </button>
 
-                    <a href="" class="navbar-brand">App Usage Analytics</a>
+                    <a href="/" class="navbar-brand">App Usage Analytics</a>
 
 
 
@@ -50,85 +209,36 @@
 
         <!-- JUMBOTRON -HEADER BASED STYLE-->
         <div class="jumbotron">
-            <div class="container" >
-                <div class="row">
-                    <div class="col-sm-4">
-                        <img src="{{ url_for('static', filename='logo.png') }}" height="200px" width="200px" class="img-responsive center-block">
-                    </div>
-                    <div class="col-sm-8">
-                        <img src="{{ url_for('static', filename='logoText.png') }}" height="250px" width="500px" >
 
-
-
-                    </div>
-
-
-
-            </div><!-- END Container-->
         </div><!-- END JUMBOT -->
 
-
-             <!-- CONTACT US-->
         <div class="container">
-            <!--<section id="contact">-->
-                <!--&lt;!&ndash; <div class="page-header" id="contact">-->
-                    <!--<H3><strong>Contact Us</strong></H3>-->
-                <!--</div>  &lt;!&ndash; end header&ndash;&gt;-->
-                <!--<div class="row">-->
-                    <!--<div class="col-lg-4">-->
+      <h2>Analysis of Usage Duration of various apps</h2>
 
+      <ul class="nav nav-pills">
+        <li class="active"><a data-toggle="pill" href="#totalChart">Total App Usage</a></li>
+        <li><a data-toggle="pill" href="#avgChart">Average App Usage</a></li>
+        <li><a data-toggle="pill" href="#percentChart">Percentage App Usage</a></li>
+      </ul>
 
-                        <!--<h3>Contact Us</h3>-->
-                        <!--<address>-->
-                            <!--<h4><strong>Digi Campus</strong><br></h4>-->
-                            <!--Pec University Of Technology<br>-->
-                            <!--Vidya Path,Sector 12<br>-->
-                            <!--Chandigarh,160012<br>-->
-                            <!--+91 9876689088<br>-->
-                            <!--+91 8195942949-->
+      <div class="tab-content">
+        <div id="totalChart" class="tab-pane fade in active">
+          <h3>Column Chart</h3>
+          <div id="columnTotal">FusionCharts XT will load here!</div>
+        </div>
 
-                        <!--</address>-->
-                    <!--</div>-->
-                    <!--<div class="col-lg-8">-->
-                        <!--<h3>Send us your query or feedback.</h3>-->
-                        <!--<br>-->
-                        <!--<form class="form-horizontal" action="/contactus" method="POST">-->
-                            <!--<div class="form-group">-->
-                                <!--<label for="user-name" class="col-lg-2 control-label">Name-->
-                                <!--</label>-->
-                                <!--<div class="col-lg-10">-->
-                                    <!--<input type="text" class="form-control" id="user-name" placeholder="Enter your name" name="Name">-->
-                                <!--</div>-->
-                            <!--</div>&lt;!&ndash;END FORM GROUP &ndash;&gt;-->
-                            <!--<div class="form-group">-->
-                                <!--<label for="user-email" class="col-lg-2 control-label">Email-->
-                                <!--</label>-->
-                                <!--<div class="col-lg-10">-->
-                                    <!--<input type="text" class="form-control" id="user-email" placeholder="Enter your email" name="Email">-->
-                                <!--</div>-->
-                            <!--</div>&lt;!&ndash;END FORM GROUP &ndash;&gt;-->
-                             <!--<div class="form-group">-->
-                                <!--<label for="user-message" class="col-lg-2 control-label">Your Message-->
-                                <!--</label>-->
-                                <!--<div class="col-lg-10">-->
-                                    <!--<textarea id="user-message" class="form-control" cols="20"  rows="10" placeholder="Enter your Message" name="Message" ></textarea>-->
-                                <!--</div>-->
-                            <!--</div>&lt;!&ndash;END FORM GROUP &ndash;&gt;-->
-                            <!--<DIV class="form-group">-->
-                                <!--<div class="col-lg-10 col-lg-offset-2">-->
-                                    <!--<button type="submit" class="btn btn-primary">Submit</button>-->
-                                <!--</div>-->
-                            <!--</DIV>-->
-                        <!--</form>-->
-                    <!--</div>-->
-                <!--</div>&lt;!&ndash; end row&ndash;&gt;-->
+        <div id="avgChart" class="tab-pane fade">
+          <h3>Column Chart</h3>
+          <div id="columnAvg">FusionCharts XT will load here!</div>
+        </div>
 
+        <div id="percentChart" class="tab-pane fade">
+          <h3>Column Chart</h3>
+          <div id="piePercent">FusionCharts XT will load here!</div>
+        </div>
 
-
-            <!--</section>-->
-        </DIV>
-
-
+      </div>
+    </div>
 
 
     </body>
