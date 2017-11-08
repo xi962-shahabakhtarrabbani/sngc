@@ -1,0 +1,17 @@
+
+Objective :
+1-To analyse the app usage data collected from the Android Smartphones 
+2-To provide visualisation of the analysed data through various charts
+3-Provide a platform to the users to view their analysed data through visualisation
+
+
+Technologies Used :
+1- Flask 
+Flask is a micro web framework based in Python and based on the Werkzeug toolkit and Jinja2 template engine
+
+
+2- FusionCharts 
+Javascript Charting library used for rendering various statistical charts, aiding in analysis and visualisation
+
+3- Bootstrap
+Bootstrap is the most popular HTML, CSS, and JavaScript framework for developing responsive, mobile-first web sites
