@@ -23,7 +23,7 @@
                         "numbersuffix": " hours",
                         "theme": "fint"
                     },
-                    "data": {{ data|tojson }}
+                    "data": {{ data1|tojson }}
                 }
             });
             appUsageChart.render();
@@ -47,7 +47,7 @@
                         "yAxisName": "Usage Duration (in miliseconds)",
                         "theme": "fint"
                     },
-                    "data": {{ data|tojson }}
+                    "data": {{ data2|tojson }}
                 }
             });
             appUsageChart.render();
@@ -57,20 +57,47 @@
     <script type="text/javascript">
         FusionCharts.ready(function () {
             var appUsageChart = new FusionCharts({
-                "type": "pyramid",    // use "pie3d" for pie chart, "pyramid" for pyramid chart :)
-                "renderAt": "pyramidContainer",
+                "type": "stackedcolumn3d",    // use "pie3d" for pie chart, "pyramid" for pyramid chart :)
+                "renderAt": "stackContainer",
                 "width": "700",
                 "height": "400",
                 "dataFormat": "json",
                 "dataSource": {
                     "chart": {
-                        "caption": "App Usage Analysis",
-                        "subCaption": "",
-                        "xAxisName": "App",
-                        "yAxisName": "Usage Duration (in miliseconds)",
-                        "theme": "fint"
+                        "caption": "Visits from search engines",
+                        "showvalues": "0",
+                        "plotfillalpha": "95",
+                        "formatnumberscale": "0",
+                        "showborder": "0"
                     },
-                    "data": {{ data|tojson }}
+                    "categories": [
+                        {
+                            "category": [
+                                {
+                                    "label": "Week1",
+                                    "stepSkipped": false,
+                                    "appliedSmartLabel": true
+                                },
+                                {
+                                    "label": "Week2",
+                                    "stepSkipped": false,
+                                    "appliedSmartLabel": true
+                                },
+                                {
+                                    "label": "Week3",
+                                    "stepSkipped": false,
+                                    "appliedSmartLabel": true
+                                },
+                                {
+                                    "label": "Week4",
+                                    "stepSkipped": false,
+                                    "appliedSmartLabel": true
+                                },
+                            ]
+                        }
+                    ],
+
+                    "dataset": {{ data3|tojson }}
                 }
             });
             appUsageChart.render();
@@ -115,14 +142,12 @@
     <ul class="nav nav-pills">
         <li class="active"><a data-toggle="pill" href="#columnChart">Analysis by Duration</a></li>
         <li><a data-toggle="pill" href="#pieChart">Analysis by Fraction</a></li>
-        <li><a data-toggle="pill" href="#pyramidChart">Weekly Analysis</a></li>
-        <li><a data-toggle="pill" href="#pyramidChart">Weekend Analysis</a></li>
-        <li><a data-toggle="pill" href="#pyramidChart">Dashboard</a></li>
+        <li><a data-toggle="pill" href="#stackChart">Weekly Analysis</a></li>
+        <li><a data-toggle="pill" href="#dashboard">Dashboard</a></li>
     </ul>
 
     <div class="tab-content">
         <div id="columnChart" class="tab-pane fade in active">
-            <!--<h3>Column Chart</h3> -->
             <br >
             <br >
             <div id="columnContainer">FusionCharts XT will load here!</div>
@@ -133,9 +158,14 @@
             <div id="pieContainer">FusionCharts XT will load here!</div>
         </div>
 
-        <div id="pyramidChart" class="tab-pane fade">
-            <h3>Pyramid Chart</h3>
-            <div id="pyramidContainer">FusionCharts XT will load here!</div>
+        <div id="stackChart" class="tab-pane fade">
+            <h3>Stacked Chart</h3>
+            <div id="stackContainer">FusionCharts XT will load here!</div>
+        </div>
+
+        <div id="dashboard" class="tab-pane fade">
+            <h3>Dashboard</h3>
+            <div id="dashboardContainer">FusionCharts XT will load here!</div>
         </div>
     </div>
 </div>

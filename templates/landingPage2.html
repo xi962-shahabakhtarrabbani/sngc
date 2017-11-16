@@ -5,83 +5,6 @@
   <script type="text/javascript" src="{{ url_for('static', filename='javascript/fusioncharts.js') }}"></script>
   <script type="text/javascript" src="{{ url_for('static', filename='javascript/fusioncharts.theme.fint.js') }}"></script>
 
-  <script type="text/javascript">
-    FusionCharts.ready(function(){
-      var appUsageChart = new FusionCharts({
-          "type": "column3d",    // use "pie3d" for pie chart, "pyramid" for pyramid chart :)
-          "renderAt": "columnTotal",
-          "width": "700",
-          "height": "400",
-          "dataFormat": "json",
-          "dataSource":  {
-            "chart": {
-              "caption": "Total App Usage Analysis",
-              "subCaption": "",
-              "xAxisName": "App Name",
-              "yAxisName": "Total Usage Duration (in miliseconds)",
-              "theme": "fint"
-           },
-           "data": {{ totalData|tojson }}
-
-      }
-
-    });
-  appUsageChart.render();
-  })
-  </script>
-
-  <script type="text/javascript">
-    FusionCharts.ready(function(){
-      var appUsageChart = new FusionCharts({
-          "type": "column3d",    // use "pie3d" for pie chart, "pyramid" for pyramid chart :)
-          "renderAt": "columnAvg",
-          "width": "700",
-          "height": "400",
-          "dataFormat": "json",
-          "dataSource":  {
-            "chart": {
-              "caption": "Average App Usage Analysis",
-              "subCaption": "",
-              "xAxisName": "App Name",
-              "yAxisName": "Average Usage Duration (in miliseconds)",
-              "theme": "fint"
-           },
-           "data": {{ avgData|tojson }}
-
-      }
-
-    });
-  appUsageChart.render();
-  })
-  </script>
-
-    <script type="text/javascript">
-    FusionCharts.ready(function(){
-      var appUsageChart = new FusionCharts({
-          "type": "pie3d",    // use "pie3d" for pie chart, "pyramid" for pyramid chart :)
-          "renderAt": "piePercent",
-          "width": "700",
-          "height": "400",
-          "dataFormat": "json",
-          "dataSource":  {
-            "chart": {
-              "caption": "Average App Usage Analysis",
-              "subCaption": "",
-              "showPercentValues": "1",
-              "xAxisName": "App Name",
-              "yAxisName": "Average Usage Duration (in miliseconds)",
-              "theme": "fint"
-           },
-           "data": {{ avgData|tojson }}
-
-      }
-
-    });
-  appUsageChart.render();
-  })
-  </script>
-
-
 
 </head>
 
@@ -110,8 +33,10 @@
 
                     <!--</ul>-->
 
-                    <a href="/login" class="btn btn-info navbar-btn navbar-right " id="studentloginbutton"><span class="glyphicon glyphicon-user"></span>
-                    Login</a><!--navbar-btn to keep it aligned -->
+                    <a href="/userLogin" class="btn btn-info navbar-btn navbar-right " id="userloginbutton"><span class="glyphicon glyphicon-user"></span>
+                    User Login</a><!--navbar-btn to keep it aligned -->
+                    <a href="/adminLogin" class="btn btn-info navbar-btn navbar-right " id="adminloginbutton"><span class="glyphicon glyphicon-user"></span>
+                    Admin Login</a><!--navbar-btn to keep it aligned -->
 
 
                     <!--<a href="/instructorlogin" class="btn btn-info navbar-btn navbar-right" id="instructorloginbutton"><span class="glyphicon glyphicon-user"></span>-->
@@ -121,33 +46,7 @@
         </nav><!-- END NAVBAR -->
 
 
-    <div class="container">
-      <h2>Analysis of Usage Duration of various apps</h2>
 
-      <ul class="nav nav-pills">
-        <li class="active"><a data-toggle="pill" href="#totalChart">Total App Usage</a></li>
-        <li><a data-toggle="pill" href="#avgChart">Average App Usage</a></li>
-        <li><a data-toggle="pill" href="#percentChart">Percentage App Usage</a></li>
-      </ul>
-
-      <div class="tab-content">
-        <div id="totalChart" class="tab-pane fade in active">
-          <h3>Column Chart</h3>
-          <div id="columnTotal">FusionCharts XT will load here!</div>
-        </div>
-
-        <div id="avgChart" class="tab-pane fade">
-          <h3>Column Chart</h3>
-          <div id="columnAvg">FusionCharts XT will load here!</div>
-        </div>
-
-        <div id="percentChart" class="tab-pane fade">
-          <h3>Column Chart</h3>
-          <div id="piePercent">FusionCharts XT will load here!</div>
-        </div>
-
-      </div>
-    </div>
 
 
 

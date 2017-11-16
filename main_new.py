@@ -6,7 +6,7 @@ app = Flask(__name__)
 
 @app.route('/portal/<user>')
 def portal(user):
-    #uri = "http://ec2-52-15-178-137.us-east-2.compute.amazonaws.com/visualization/"
+    uri = "http://ec2-52-15-178-137.us-east-2.compute.amazonaws.com/visualization/"
     #uri = "http://172.31.65.107:8000/visualization/total_time_most_used/"
     #try:
      #   uResponse = requests.get(uri, params={"device_id": user})

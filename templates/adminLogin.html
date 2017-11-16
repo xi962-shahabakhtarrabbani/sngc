@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <title>App Usage Analytics</title>
+        <meta name="generator" content="Bootply" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+        <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css" rel="stylesheet">
+        <link href="{{ url_for('static', filename='stylesheets/bootstrap.min.css') }}" rel="stylesheet"/>
+    </head>
+
+    <style>
+        body{
+            padding-top: 40px;
+        }
+    </style>
+
+    <body>
+
+        <nav class="navbar navbar-default navbar-fixed-top" id="my-navbar">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+
+                    </button>
+
+                    <a href="/" class="navbar-brand">App Usage Analytics</a>
+
+
+
+                </div><!-- NAVBAR HEADER-->
+                <div class="collapse navbar-collapse" id="navbar-collapse">
+                    <!--<ul class="nav navbar-nav">-->
+                        <!--<li><a href="#jssor_1">Features</a>-->
+                        <!--&lt;!&ndash; <li><a href="#portfolio">About Us</a> &ndash;&gt;-->
+                        <!--<li><a href="#contact">Contact Us</a>-->
+
+                    <!--</ul>-->
+
+                    <a href="/login" class="btn btn-info navbar-btn navbar-right " id="studentloginbutton"><span class="glyphicon glyphicon-user"></span>
+                    Login</a><!--navbar-btn to keep it aligned -->
+
+
+                    <!--<a href="/instructorlogin" class="btn btn-info navbar-btn navbar-right" id="instructorloginbutton"><span class="glyphicon glyphicon-user"></span>-->
+                    <!--Instructor Login</a>-->
+                </div>
+            </div><!-- END CONTAINER -->
+        </nav><!-- END NAVBAR -->
+
+
+       <div class="container">
+            <div id="loginbox" style="margin-top:50px;" class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
+                <div class="panel panel-success" >
+                        <div class="panel-heading">
+                            <div class="panel-title">Admin - Sign In</div>
+
+                        </div>
+
+                        <div style="padding-top:30px" class="panel-body" >
+
+                            <div style="display:none" id="login-alert" class="alert alert-danger col-sm-12"></div>
+
+                            <form id="loginform" class="form-horizontal" role="form" method="POST" action="{{request.path}}">
+                                <div class="form-group">
+                                  <label for="username" class="col-lg-2 control-label">Login Key</label>
+                                  <div class="col-lg-10">
+                                    <input type="text" name="username" class="form-control" id="username" placeholder="Enter Login Key">
+                                  </div>
+                                </div>
+
+                                <div class="col-lg-10 col-lg-offset-2">
+                                    <button type="reset" class="btn btn-default">Cancel</button>
+                                    <button type="submit" class="btn btn-primary">Sign In</button>
+                                </div>
+
+
+
+                            </form>
+
+
+
+                            </div>
+                        </div>
+            </div>
+
+        </div>
+
+
+
+
+    </body>
+</html>
