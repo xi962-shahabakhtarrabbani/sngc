@@ -20,8 +20,8 @@ def userPortal(user):
     uri1="http://ec2-52-15-178-137.us-east-2.compute.amazonaws.com/visualization/current_date"
     uri2="http://ec2-52-15-178-137.us-east-2.compute.amazonaws.com/visualization/total_time_most_used"
     uri3="http://ec2-52-15-178-137.us-east-2.compute.amazonaws.com/visualization/weekly_time_used"
-    uri4="http://ec2-52-15-178-137.us-east-2.compute.amazonaws.com/visualization/"
-    uri5="http://ec2-52-15-178-137.us-east-2.compute.amazonaws.com/visualization/"
+    uri4="http://ec2-52-15-178-137.us-east-2.compute.amazonaws.com/visualization/most_used"
+    uri5="http://ec2-52-15-178-137.us-east-2.compute.amazonaws.com/visualization/least_used"
 
 
     # Daily Usage
@@ -101,10 +101,52 @@ def userPortal(user):
 
         weekData.append(appDict)
 
+    # Most used app
+    try:
+        uResponse = requests.get(uri4,params={"device_id":user})
+    except requests.ConnectionError:
+        return "Connection Error"
+    Jresponse = uResponse.text
+    data4 = json.loads(Jresponse)
+    dataList4=data4['result']
+    # dataList4 = compute_hour_duration(dataList4)
+    index1 = dataList4['label'].rfind('.')
+    dataList4['label']=dataList4['label'][index1+1:].title()
+
+    # Least used app
+    # try:
+    #     uResponse = requests.get(uri5, params={"device_id": user})
+    # except requests.ConnectionError:
+    #     return "Connection Error"
+    # Jresponse = uResponse.text
+    # data5 = json.loads(Jresponse)
+    # dataList5 = data5['result']
+    # # dataList5 = compute_hour_duration(dataList5)
+
+    pass
 
 
 
-    return render_template('welcomePageUser.html',data1=dataList1,data2=dataList2,data3=weekData,user=user)
+    return render_template('welcomePageUser.html',data1=dataList1,data2=dataList2,data3=weekData,mostUsed=dataList4,user=user)
+
+
+@app.route('/adminPortal/<user>')
+def adminPortal(user):
+    uri1 = "http://ec2-52-15-178-137.us-east-2.compute.amazonaws.com/visualization/last7_days"
+    uri2 = "http://ec2-52-15-178-137.us-east-2.compute.amazonaws.com/visualization/max_used_all"
+    uri3 = "http://ec2-52-15-178-137.us-east-2.compute.amazonaws.com/visualization/min_used_all"
+
+    # Last 7 days
+    try:
+        uResponse = requests.get(uri1, params={"device_id": user})
+    except requests.ConnectionError:
+        return "Connection Error"
+    Jresponse = uResponse.text
+    data1 = json.loads(Jresponse)
+    dataList1 = data1['result']
+    dataList1 = compute_hour_duration(dataList1)
+
+    return render_template('adminPortal.html',user=user)
 
 
 @app.route('/')
@@ -131,7 +173,7 @@ def adminLogin():
         username=request.form['username']
         # send these to the server
 
-        return redirect(url_for('portal',user=username))
+        return redirect(url_for('adminPortal',user=username))
 
     return render_template('adminLogin.html')
 
