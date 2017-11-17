@@ -11,8 +11,11 @@ def compute_hour_duration(data):
         value_in_mins = value_in_secs / 60.0
         value_in_hours = value_in_mins / 60.0
         value_in_hours = float("{0:.2f}".format(value_in_hours))
-        data[i]["value"] = str(value_in_hours)
+        data[i]["value"] = str(value_in_mins)
     return data
+
+def convert2minutes(data):
+    return str(int(data)/60.0)
 
 
 @app.route('/userPortal/<user>')
@@ -107,6 +110,13 @@ def userPortal(user):
 
         weekData.append(appDict)
 
+    for app in weekData:
+        for data1 in app['data']:
+            data1['value']=convert2minutes(data1['value'])
+
+
+
+
     # Most used app
     try:
         uResponse = requests.get(uri4,params={"device_id":user})
@@ -131,8 +141,9 @@ def userPortal(user):
     dataList5['label'] = dataList5['label'][index1 + 1:].title()
     # dataList5 = compute_hour_duration(dataList5)
 
+
+
     # Last 7 days
-    # Daily Usage
     try:
         uResponse = requests.get(uri6, params={"device_id": user})
     except requests.ConnectionError:
@@ -153,8 +164,7 @@ def userPortal(user):
         except:
             pass
 
-    pass
-
+    dataList6=compute_hour_duration(dataList6)
 
 
     return render_template('welcomePageUser.html',data1=dataList1,data2=dataList2,data3=weekData,mostUsed=dataList4,leastUsed=dataList5,last7=dataList6,user=user)
@@ -201,6 +211,9 @@ def adminPortal(user):
     index3 = dataList3['label'].rfind('.')
     dataList3['label'] = dataList3['label'][index3 + 1:].title()
 
+    # dataList3['label']='Customer'
+    # dataList3['value'] = '1'
+
     return render_template('adminPortal.html',tableData=dataList1,maxUsed=dataList2,leastUsed=dataList3,user=user)
 
 
@@ -236,4 +249,4 @@ def adminLogin():
 
 
 if __name__ == '__main__':
-   app.run(debug = True)
+   app.run(debug = True,host='0.0.0.0')

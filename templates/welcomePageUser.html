@@ -44,11 +44,11 @@
                 "dataFormat": "json",
                 "dataSource": {
                     "chart": {
-                        "caption": "App Usage Analysis For Today",
+                        "caption": "App Usage in the past week",
                         "subCaption": "(By Duration)",
                         "xAxisName": "Application Name",
-                        "yAxisName": "Usage Duration (in seconds)",
-                        "numbersuffix": " seconds",
+                        "yAxisName": "Usage Duration (in minutes)",
+                        "numbersuffix": " minutes",
                         "theme": "fint"
                     },
                     "data": {{ last7|tojson }}
@@ -68,11 +68,9 @@
                 "dataFormat": "json",
                 "dataSource": {
                     "chart": {
-                        "caption": "App Usage Analysis For Today",
-                        "subCaption": "(By Fraction)",
+                        "caption": "Usage of Top 10 Apps",
+                        "subCaption": "(By Percentage)",
                         "showPercentValues": "1",
-                        "xAxisName": "App",
-                        "yAxisName": "Usage Duration (in miliseconds)",
                         "theme": "fint"
                     },
                     "data": {{ data2|tojson }}
@@ -96,7 +94,9 @@
                         "showvalues": "0",
                         "plotfillalpha": "95",
                         "formatnumberscale": "0",
-                        "showborder": "0"
+                        "showborder": "0",
+
+                        "yAxisName": "Usage Duration (in minutes)",
                     },
                     "categories": [
                         {
@@ -151,6 +151,7 @@
         {
             font-size: 87px;
         }
+
     </style>
 
 </head>
@@ -167,7 +168,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#">App Usage Analytics</a>
+            <a class="navbar-brand" href="/">App Usage Analytics</a>
         </div>
 
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -176,10 +177,11 @@
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                         <span class="glyphicon glyphicon-user"></span> 
                         <strong>Logged in as User: {{user}}</strong>
-                        <span class="glyphicon glyphicon-chevron-down"></span>
                     </a>
-
                 </li>
+
+
+
             </ul>
         </div>
     </div>
@@ -191,11 +193,13 @@
 
 <div class="container">
     <h2>Analysis of Applications by Usage Duration</h2>
+    <br>
+    <br>
 
     <ul class="nav nav-pills">
-        <li class="active"><a data-toggle="pill" href="#columnChart">Daily Usage</a></li>
+        <li class="active"><a data-toggle="pill" href="#columnChart">Today's Usage</a></li>
         <li><a data-toggle="pill" href="#week">Usage-Past week</a></li>
-        <li><a data-toggle="pill" href="#pieChart">Analysis by Fraction</a></li>
+        <li><a data-toggle="pill" href="#pieChart">Top 10 apps</a></li>
         <li><a data-toggle="pill" href="#stackChart">Weekly Analysis</a></li>
         <li><a data-toggle="pill" href="#mostUsed">Most Used App</a></li>
         <li><a data-toggle="pill" href="#leastUsed">Least Used App</a></li>
