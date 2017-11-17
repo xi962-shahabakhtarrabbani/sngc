@@ -1,10 +1,14 @@
 <html>
 <head>
     <title>App Usage Analytics</title>
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css" rel="stylesheet">
+
     <link href="{{ url_for('static', filename='stylesheets/bootstrap.min.css') }}" rel="stylesheet"/>
+
     <script type="text/javascript" src="{{ url_for('static', filename='javascript/fusioncharts.js') }}"></script>
     <script type="text/javascript"
             src="{{ url_for('static', filename='javascript/fusioncharts.theme.fint.js') }}"></script>
+
 
     <script type="text/javascript">
         FusionCharts.ready(function () {
@@ -19,11 +23,35 @@
                         "caption": "App Usage Analysis For Today",
                         "subCaption": "(By Duration)",
                         "xAxisName": "Application Name",
-                        "yAxisName": "Usage Duration (in hours)",
-                        "numbersuffix": " hours",
+                        "yAxisName": "Usage Duration (in seconds)",
+                        "numbersuffix": " seconds",
                         "theme": "fint"
                     },
                     "data": {{ data1|tojson }}
+                }
+            });
+            appUsageChart.render();
+        })
+    </script>
+
+    <script type="text/javascript">
+        FusionCharts.ready(function () {
+            var appUsageChart = new FusionCharts({
+                "type": "column3d",    // use "pie3d" for pie chart, "pyramid" for pyramid chart :)
+                "renderAt": "columnContainer1",
+                "width": "700",
+                "height": "400",
+                "dataFormat": "json",
+                "dataSource": {
+                    "chart": {
+                        "caption": "App Usage Analysis For Today",
+                        "subCaption": "(By Duration)",
+                        "xAxisName": "Application Name",
+                        "yAxisName": "Usage Duration (in seconds)",
+                        "numbersuffix": " seconds",
+                        "theme": "fint"
+                    },
+                    "data": {{ last7|tojson }}
                 }
             });
             appUsageChart.render();
@@ -47,7 +75,7 @@
                         "yAxisName": "Usage Duration (in miliseconds)",
                         "theme": "fint"
                     },
-                    "data": {{ data1|tojson }}
+                    "data": {{ data2|tojson }}
                 }
             });
             appUsageChart.render();
@@ -165,16 +193,23 @@
     <h2>Analysis of Applications by Usage Duration</h2>
 
     <ul class="nav nav-pills">
-        <li class="active"><a data-toggle="pill" href="#columnChart">Analysis by Duration</a></li>
+        <li class="active"><a data-toggle="pill" href="#columnChart">Daily Usage</a></li>
+        <li><a data-toggle="pill" href="#week">Usage-Past week</a></li>
         <li><a data-toggle="pill" href="#pieChart">Analysis by Fraction</a></li>
         <li><a data-toggle="pill" href="#stackChart">Weekly Analysis</a></li>
-        <li><a data-toggle="pill" href="#stats">Apps Stats</a></li>
+        <li><a data-toggle="pill" href="#mostUsed">Most Used App</a></li>
+        <li><a data-toggle="pill" href="#leastUsed">Least Used App</a></li>
     </ul>
 
     <div class="tab-content">
         <div id="columnChart" class="tab-pane fade in active">
             <h3>Column Chart</h3>
             <div id="columnContainer">FusionCharts XT will load here!</div>
+        </div>
+
+        <div id="week" class="tab-pane fade in">
+            <h3>Column Chart</h3>
+            <div id="columnContainer1">FusionCharts XT will load here!</div>
         </div>
 
         <div id="pieChart" class="tab-pane fade">
@@ -187,11 +222,14 @@
             <div id="stackContainer">FusionCharts XT will load here!</div>
         </div>
 
-        <div id="stats" class="tab-pane fade">
-
+        <div id="mostUsed" class="tab-pane fade">
             <h3>Most used app : </h3>
-            <h4>{{mostUsed['label']}} - {{mostUsed['value']}} seconds<h4>
+            <h4>{{mostUsed['label']}} - {{mostUsed['value']}} seconds</h4>
+        </div>
 
+        <div id="leastUsed" class="tab-pane fade">
+            <h3>Least used app : </h3>
+            <h4>{{leastUsed['label']}} - {{leastUsed['value']}} seconds</h4>
         </div>
 
     </div>

@@ -18,11 +18,11 @@ def compute_hour_duration(data):
 @app.route('/userPortal/<user>')
 def userPortal(user):
     uri1="http://ec2-52-15-178-137.us-east-2.compute.amazonaws.com/visualization/current_date"
-    uri2="http://ec2-52-15-178-137.us-east-2.compute.amazonaws.com/visualization/total_time_most_used"
+    uri2="http://ec2-52-15-178-137.us-east-2.compute.amazonaws.com/visualization/total_time_most_used_10apps"
     uri3="http://ec2-52-15-178-137.us-east-2.compute.amazonaws.com/visualization/weekly_time_used"
     uri4="http://ec2-52-15-178-137.us-east-2.compute.amazonaws.com/visualization/most_used"
     uri5="http://ec2-52-15-178-137.us-east-2.compute.amazonaws.com/visualization/least_used"
-
+    uri6 = "http://ec2-52-15-178-137.us-east-2.compute.amazonaws.com/visualization/last7_days"
 
     # Daily Usage
     try:
@@ -32,7 +32,10 @@ def userPortal(user):
     Jresponse = uResponse.text
     data1 = json.loads(Jresponse)
     dataList1=data1['result']
-    dataList1 = compute_hour_duration(dataList1)
+    # try:
+    #     dataList1 = compute_hour_duration(dataList1)
+    # except:
+    #     pass
 
     for app in dataList1:
         try:
@@ -51,7 +54,10 @@ def userPortal(user):
     Jresponse = uResponse.text
     data2 = json.loads(Jresponse)
     dataList2=data2['result']
-    dataList2 = compute_hour_duration(dataList2)
+    # try:
+    #     dataList2 = compute_hour_duration(dataList2)
+    # except:
+    #     pass
 
     for app in dataList2:
         try:
@@ -114,39 +120,88 @@ def userPortal(user):
     dataList4['label']=dataList4['label'][index1+1:].title()
 
     # Least used app
+    try:
+        uResponse = requests.get(uri5, params={"device_id": user})
+    except requests.ConnectionError:
+        return "Connection Error"
+    Jresponse = uResponse.text
+    data5 = json.loads(Jresponse)
+    dataList5 = data5['result']
+    index1 = dataList5['label'].rfind('.')
+    dataList5['label'] = dataList5['label'][index1 + 1:].title()
+    # dataList5 = compute_hour_duration(dataList5)
+
+    # Last 7 days
+    # Daily Usage
+    try:
+        uResponse = requests.get(uri6, params={"device_id": user})
+    except requests.ConnectionError:
+        return "Connection Error"
+    Jresponse = uResponse.text
+    data6 = json.loads(Jresponse)
+    dataList6 = data6['result']
     # try:
-    #     uResponse = requests.get(uri5, params={"device_id": user})
-    # except requests.ConnectionError:
-    #     return "Connection Error"
-    # Jresponse = uResponse.text
-    # data5 = json.loads(Jresponse)
-    # dataList5 = data5['result']
-    # # dataList5 = compute_hour_duration(dataList5)
+    #     dataList1 = compute_hour_duration(dataList6)
+    # except:
+    #     pass
+
+    for app in dataList6:
+        try:
+            index = app['label'].rfind('.')
+            app['label'] = app['label'][index + 1:].title()
+            pass
+        except:
+            pass
 
     pass
 
 
 
-    return render_template('welcomePageUser.html',data1=dataList1,data2=dataList2,data3=weekData,mostUsed=dataList4,user=user)
+    return render_template('welcomePageUser.html',data1=dataList1,data2=dataList2,data3=weekData,mostUsed=dataList4,leastUsed=dataList5,last7=dataList6,user=user)
 
 
 @app.route('/adminPortal/<user>')
 def adminPortal(user):
-    uri1 = "http://ec2-52-15-178-137.us-east-2.compute.amazonaws.com/visualization/last7_days"
+    uri1 = "http://ec2-52-15-178-137.us-east-2.compute.amazonaws.com/visualization/apps_run_time_1month_all"
     uri2 = "http://ec2-52-15-178-137.us-east-2.compute.amazonaws.com/visualization/max_used_all"
     uri3 = "http://ec2-52-15-178-137.us-east-2.compute.amazonaws.com/visualization/min_used_all"
 
     # Last 7 days
     try:
-        uResponse = requests.get(uri1, params={"device_id": user})
+        uResponse = requests.get(uri1)
     except requests.ConnectionError:
         return "Connection Error"
     Jresponse = uResponse.text
     data1 = json.loads(Jresponse)
     dataList1 = data1['result']
-    dataList1 = compute_hour_duration(dataList1)
 
-    return render_template('adminPortal.html',user=user)
+    for i in dataList1:
+        index=i['app_name'].rfind('.')
+        i['app_name']=i['app_name'][index + 1:].title()
+
+    # Most used app global
+    try:
+        uResponse = requests.get(uri2)
+    except requests.ConnectionError:
+        return "Connection Error"
+    Jresponse = uResponse.text
+    data2 = json.loads(Jresponse)
+    dataList2 = data2['result']
+    index2 = dataList2['label'].rfind('.')
+    dataList2['label'] = dataList2['label'][index2 + 1:].title()
+
+    # Least used app global
+    try:
+        uResponse = requests.get(uri3)
+    except requests.ConnectionError:
+        return "Connection Error"
+    Jresponse = uResponse.text
+    data3 = json.loads(Jresponse)
+    dataList3 = data3['result']
+    index3 = dataList3['label'].rfind('.')
+    dataList3['label'] = dataList3['label'][index3 + 1:].title()
+
+    return render_template('adminPortal.html',tableData=dataList1,maxUsed=dataList2,leastUsed=dataList3,user=user)
 
 
 @app.route('/')
